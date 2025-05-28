@@ -7,7 +7,7 @@ import copy
 import random 
 import matplotlib.pyplot as plt
 
-import Agents
+import Agent
 import Network
 
 class TrainManager():
@@ -54,8 +54,8 @@ class TrainManager():
             QNet=Network.VANet(obs_dim,action_dim).to(self.device)
         optimizer=torch.optim.Adam(QNet.parameters(),lr=lr)
 
-        self.buffer=Agents.ReplayBuffer(capacity=buffer_capacity,device=self.device)
-        self.agent=Agents.DQN(QNet=QNet,
+        self.buffer=Agent.ReplayBuffer(capacity=buffer_capacity,device=self.device)
+        self.agent=Agent.DQN(QNet=QNet,
                               epsilon = epsilon,
                               mini_epsilon = mini_epsilon,
                               action_dim=action_dim,
