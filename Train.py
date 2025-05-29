@@ -7,8 +7,8 @@ import copy
 import random 
 import matplotlib.pyplot as plt
 
-import Agent
-import Network
+import agent
+import network
 
 class TrainManager():
     def __init__(self,
@@ -49,13 +49,13 @@ class TrainManager():
         obs_dim = gym.spaces.utils.flatdim(env.observation_space)
         action_dim=env.action_space.n
         if dqn_type == "DQN" or dqn_type == "Double_DQN":
-            QNet=Network.QNet(obs_dim,action_dim).to(self.device)
+            QNet=network.QNet(obs_dim,action_dim).to(self.device)
         elif dqn_type == "Dueling_DQN":
-            QNet=Network.VANet(obs_dim,action_dim).to(self.device)
+            QNet=network.VANet(obs_dim,action_dim).to(self.device)
         optimizer=torch.optim.Adam(QNet.parameters(),lr=lr)
 
-        self.buffer=Agent.ReplayBuffer(capacity=buffer_capacity,device=self.device)
-        self.agent=Agent.DQN(QNet=QNet,
+        self.buffer=agent.ReplayBuffer(capacity=buffer_capacity,device=self.device)
+        self.agent=agent.DQN(QNet=QNet,
                               epsilon = epsilon,
                               mini_epsilon = mini_epsilon,
                               action_dim=action_dim,

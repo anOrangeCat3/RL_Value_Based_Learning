@@ -6,7 +6,6 @@ import copy
 import collections
 import random
 
-
 class ReplayBuffer():
     def __init__(self,capacity:int,device:torch.device = torch.device("cpu")) -> None:
         self.device = device
